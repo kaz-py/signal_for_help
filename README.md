@@ -1,6 +1,5 @@
 # Detector de Gesto "Signal for Help" en C++ con OpenCV
 
-Proyecto universitario — Arquitectura de Hardware · UNAE
 
 ---
 
