@@ -206,7 +206,7 @@ int main(int argc, char* argv[]) {
 #ifdef _WIN32
     else { serialPort = "COM3"; }
 #else
-    else { serialPort = "/dev/ttyUSB0"; }
+    else { serialPort = "/dev/ttyACM0"; }
 #endif
 
     int serialBaud = 9600;

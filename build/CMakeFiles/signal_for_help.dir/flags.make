@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include -isystem /usr/include/opencv4
 
-CXX_FLAGS = -std=gnu++17 -Wall -Wextra -O2
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -O2
 
