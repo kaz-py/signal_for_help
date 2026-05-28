@@ -187,7 +187,7 @@ GestureResult GestureDetector::update(const std::vector<cv::Point2f>& kp,
                 reset(); initialized_ = true; phaseStart_ = now; lastHandSeen_ = now;
                 if (verbose_) std::cout << "[Gesture] → IDLE (gesto liberado)\n";
             }
-            result.label = "!!! SIGNAL FOR HELP !!!";
+            result.label = "Gesto completo! (paso 3/3)";
             break;
         }
     }

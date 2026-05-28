@@ -15,6 +15,7 @@ set(SOURCES
     src/hand_pose.cpp
     src/gesture_detector.cpp
     src/alert_system.cpp
+    src/serial_comm.cpp
 )
 
 add_executable(signal_for_help ${SOURCES})

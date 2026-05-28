@@ -1,5 +1,5 @@
 CMakeFiles/signal_for_help.dir/src/main.cpp.o: \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/main.cpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/main.cpp \
  /usr/include/stdc-predef.h /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \
@@ -370,7 +370,8 @@ CMakeFiles/signal_for_help.dir/src/main.cpp.o: \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
  /usr/include/opencv4/opencv2/video/background_segm.hpp \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include/skin_detector.hpp \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include/hand_pose.hpp \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include/gesture_detector.hpp \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include/alert_system.hpp
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/skin_detector.hpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/hand_pose.hpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/gesture_detector.hpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/alert_system.hpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/serial_comm.hpp

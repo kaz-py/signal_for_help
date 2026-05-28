@@ -1,3 +1,3 @@
-/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles/signal_for_help.dir
-/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles/edit_cache.dir
-/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles/rebuild_cache.dir
+/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles/signal_for_help.dir
+/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles/edit_cache.dir
+/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles/rebuild_cache.dir

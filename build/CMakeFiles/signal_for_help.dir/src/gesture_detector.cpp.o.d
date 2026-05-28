@@ -1,7 +1,7 @@
 CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o: \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/gesture_detector.cpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/gesture_detector.cpp \
  /usr/include/stdc-predef.h \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include/gesture_detector.hpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/gesture_detector.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \

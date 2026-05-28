@@ -6,6 +6,9 @@
 #include "hand_pose.hpp"
 #include "gesture_detector.hpp"
 #include "alert_system.hpp"
+#include "serial_comm.hpp"
+
+static constexpr int GESTURES_TO_ALERT = 3;
 
 // ---------------------------------------------------------------------------
 // Expand ROI with asymmetric padding:
@@ -66,7 +69,9 @@ static void drawHUD(cv::Mat& frame,
                     const GestureDebug&  dbg,
                     float confidence,
                     bool  modelLoaded,
-                    bool  showDebug) {
+                    bool  showDebug,
+                    int   gestureCount,
+                    bool  serialOpen) {
     const int barH = 60;
     int barY = frame.rows - barH;
     cv::rectangle(frame, {0, barY, frame.cols, barH}, cv::Scalar(20, 20, 20), cv::FILLED);
@@ -80,13 +85,38 @@ static void drawHUD(cv::Mat& frame,
         case GesturePhase::SIGNAL_COMPLETE: phaseColor = {60,   60, 255}; break;
     }
 
-    cv::putText(frame, gr.label,
+    // When gesture is complete but the 3-gesture threshold hasn't been reached,
+    // show the intermediate count instead of the alert label.
+    std::string displayLabel = gr.label;
+    if (gr.phase == GesturePhase::SIGNAL_COMPLETE && gestureCount > 0)
+        displayLabel = "Gesto " + std::to_string(gestureCount)
+                     + "/" + std::to_string(GESTURES_TO_ALERT) + " completado";
+
+    cv::putText(frame, displayLabel,
                 {10, barY + 22},
                 cv::FONT_HERSHEY_SIMPLEX, 0.60, phaseColor, 2, cv::LINE_AA);
 
     // Progress bar (shows how long current phase has been held)
     if (gr.phase == GesturePhase::OPEN_HAND || gr.phase == GesturePhase::THUMB_TUCKED)
         drawProgressBar(frame, gr.progress, 10, barY + 32, 200, 14, phaseColor);
+
+    // Gesture counter — only visible once at least one gesture is counted
+    if (gestureCount > 0) {
+        std::string cntStr = "Gestos: " + std::to_string(gestureCount)
+                           + "/" + std::to_string(GESTURES_TO_ALERT);
+        cv::putText(frame, cntStr,
+                    {10, barY + 50},
+                    cv::FONT_HERSHEY_SIMPLEX, 0.42, cv::Scalar(60, 220, 255), 1, cv::LINE_AA);
+    }
+
+    // Serial port status indicator
+    {
+        cv::Scalar sColor = serialOpen ? cv::Scalar(60, 220, 60) : cv::Scalar(80, 80, 80);
+        std::string sStr  = serialOpen ? "COM:OK" : "COM:--";
+        cv::putText(frame, sStr,
+                    {frame.cols - 130, barY + 50},
+                    cv::FONT_HERSHEY_SIMPLEX, 0.38, sColor, 1, cv::LINE_AA);
+    }
 
     // Confidence and keys
     std::string confStr = modelLoaded
@@ -167,9 +197,25 @@ int main(int argc, char* argv[]) {
     int camIndex = 0;
     if (argc > 2) camIndex = std::atoi(argv[2]);
 
+    // Serial port: argv[3] (optional).
+    // Linux default: /dev/ttyUSB0  |  Windows default: COM3
+    std::string serialPort;
+    if (argc > 3) {
+        serialPort = argv[3];
+    }
+#ifdef _WIN32
+    else { serialPort = "COM3"; }
+#else
+    else { serialPort = "/dev/ttyUSB0"; }
+#endif
+
+    int serialBaud = 9600;
+    if (argc > 4) serialBaud = std::atoi(argv[4]);
+
     std::cout << "=== Signal for Help Detector ===\n";
-    std::cout << "Modelo : " << modelPath << "\n";
-    std::cout << "Camara : " << camIndex  << "\n\n";
+    std::cout << "Modelo       : " << modelPath  << "\n";
+    std::cout << "Camara       : " << camIndex   << "\n";
+    std::cout << "Puerto serial: " << serialPort << " @ " << serialBaud << " bps\n\n";
     std::cout << "Controles:\n"
               << "  Q  - Salir\n"
               << "  R  - Reiniciar estado del gesto\n"
@@ -186,6 +232,20 @@ int main(int argc, char* argv[]) {
                                      /*thumbHold=*/0.5f,
                                      /*reset=*/1.5f);
     AlertSystem       alertSystem;
+
+    // ── Serial port ─────────────────────────────────────────────────────────
+    SerialComm serial;
+    serial.open(serialPort, serialBaud);
+    if (!serial.isOpen()) {
+        std::cout << "[Serial] Puerto no disponible — continuando sin serial.\n"
+                  << "         Pase el puerto como tercer argumento: "
+                  << argv[0] << " [modelo] [cam] [puerto] [baud]\n\n";
+    }
+
+    int gestureCount = 0;
+    using Clock = std::chrono::steady_clock;
+    Clock::time_point lastGestureTime = Clock::now();
+    static constexpr float COUNTER_RESET_SEC = 10.0f;
 
     if (!poseEstimator.isLoaded()) {
         std::cerr << "\n[ADVERTENCIA] Modelo ONNX no encontrado.\n"
@@ -280,16 +340,48 @@ int main(int argc, char* argv[]) {
         if (handConfirmed && !bestPose.landmarks.empty())
             lastDebug = gestureDetector.getDebug(bestPose.landmarks);
 
-        // ── Step 5: Alert ────────────────────────────────────────────────────
-        if (gr.alertFired)
-            alertSystem.trigger();
+        // ── Step 5: Gesture counter + alert (solo al llegar a 3) + serial ──────
+        if (gr.alertFired) {
+            ++gestureCount;
+            lastGestureTime = Clock::now();
+            std::cout << "[Counter] Gesto completado: " << gestureCount
+                      << "/" << GESTURES_TO_ALERT << "\n";
+
+            if (gestureCount >= GESTURES_TO_ALERT) {
+                gestureCount = 0;
+                alertSystem.trigger();  // alerta visual/sonora solo en el 3.er gesto
+                std::cout << "[Counter] *** " << GESTURES_TO_ALERT
+                          << " gestos alcanzados — enviando alerta serial ***\n";
+
+                if (serial.isOpen()) {
+                    serial.send("SFH\n");
+                    std::cout << "[Serial] Mensaje 'SFH' enviado a "
+                              << serial.portName() << "\n";
+                } else {
+                    std::cout << "[Serial] Puerto no disponible — alerta no enviada.\n";
+                }
+            }
+        }
+
+        // Reiniciar contador si pasan COUNTER_RESET_SEC sin un gesto nuevo
+        if (gestureCount > 0) {
+            float sinceLastGesture = std::chrono::duration<float>(
+                Clock::now() - lastGestureTime).count();
+            if (sinceLastGesture >= COUNTER_RESET_SEC) {
+                std::cout << "[Counter] Tiempo agotado — contador reiniciado ("
+                          << gestureCount << "/" << GESTURES_TO_ALERT << " perdidos)\n";
+                gestureCount = 0;
+            }
+        }
+
         if (alertSystem.isActive())
             alertSystem.render(display);
 
         // ── Step 6: HUD + debug panel ────────────────────────────────────────
         drawHUD(display, gr, lastDebug,
                 handConfirmed ? bestPose.confidence : 0.0f,
-                poseEstimator.isLoaded(), showDebugPanel);
+                poseEstimator.isLoaded(), showDebugPanel,
+                gestureCount, serial.isOpen());
 
         // ── Step 7: Skin mask overlay ─────────────────────────────────────────
         if (showMask) {
@@ -311,7 +403,8 @@ int main(int argc, char* argv[]) {
         if (key == 'r') {
             gestureDetector.reset();
             alertSystem.deactivate();
-            std::cout << "[Main] Reinicio manual.\n";
+            gestureCount = 0;
+            std::cout << "[Main] Reinicio manual (contador de gestos = 0).\n";
         }
         if (key == 'g') {
             showDebugPanel = !showDebugPanel;

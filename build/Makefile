@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help
+CMAKE_SOURCE_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build
+CMAKE_BINARY_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -225,6 +225,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/signal_for_help.dir/build.make CMakeFiles/signal_for_help.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/serial_comm.o: src/serial_comm.cpp.o
+.PHONY : src/serial_comm.o
+
+# target to build an object file
+src/serial_comm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/signal_for_help.dir/build.make CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o
+.PHONY : src/serial_comm.cpp.o
+
+src/serial_comm.i: src/serial_comm.cpp.i
+.PHONY : src/serial_comm.i
+
+# target to preprocess a source file
+src/serial_comm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/signal_for_help.dir/build.make CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.i
+.PHONY : src/serial_comm.cpp.i
+
+src/serial_comm.s: src/serial_comm.cpp.s
+.PHONY : src/serial_comm.s
+
+# target to generate assembly for a file
+src/serial_comm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/signal_for_help.dir/build.make CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.s
+.PHONY : src/serial_comm.cpp.s
+
 src/skin_detector.o: src/skin_detector.cpp.o
 .PHONY : src/skin_detector.o
 
@@ -270,6 +294,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/serial_comm.o"
+	@echo "... src/serial_comm.i"
+	@echo "... src/serial_comm.s"
 	@echo "... src/skin_detector.o"
 	@echo "... src/skin_detector.i"
 	@echo "... src/skin_detector.s"

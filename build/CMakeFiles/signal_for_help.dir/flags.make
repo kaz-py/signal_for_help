@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include -isystem /usr/include/opencv4
+CXX_INCLUDES = -I/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include -isystem /usr/include/opencv4
 
-CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -O2
+CXX_FLAGS = -std=gnu++17 -Wall -Wextra -O2
 

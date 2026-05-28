@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help
+CMAKE_SOURCE_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build
+CMAKE_BINARY_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -85,14 +85,14 @@ clean: CMakeFiles/signal_for_help.dir/clean
 CMakeFiles/signal_for_help.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/signal_for_help.dir/build.make CMakeFiles/signal_for_help.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/signal_for_help.dir/build.make CMakeFiles/signal_for_help.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target signal_for_help"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target signal_for_help"
 .PHONY : CMakeFiles/signal_for_help.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/signal_for_help.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/signal_for_help.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles 0
 .PHONY : CMakeFiles/signal_for_help.dir/rule
 
 # Convenience name for target.
@@ -102,7 +102,7 @@ signal_for_help: CMakeFiles/signal_for_help.dir/rule
 # codegen rule for target.
 CMakeFiles/signal_for_help.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/signal_for_help.dir/build.make CMakeFiles/signal_for_help.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target signal_for_help"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Finished codegen for target signal_for_help"
 .PHONY : CMakeFiles/signal_for_help.dir/codegen
 
 # clean rule for target.

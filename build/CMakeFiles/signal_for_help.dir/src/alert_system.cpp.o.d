@@ -1,7 +1,7 @@
 CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o: \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/alert_system.cpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/alert_system.cpp \
  /usr/include/stdc-predef.h \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include/alert_system.hpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/alert_system.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \

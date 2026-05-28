@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/cmake_install.cmake"
+		"/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

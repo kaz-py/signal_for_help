@@ -7,6 +7,7 @@ signal_for_help: \
   CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o \
   CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o \
   CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o \
+  CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o \
   /usr/lib/libopencv_highgui.so.4.13.0 \
   /usr/lib/libopencv_videoio.so.4.13.0 \
   /usr/lib/libopencv_dnn.so.4.13.0 \
@@ -386,6 +387,8 @@ CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o:
 CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o:
 
 CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o:
+
+CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o:
 
 /usr/lib/libopencv_highgui.so.4.13.0:
 

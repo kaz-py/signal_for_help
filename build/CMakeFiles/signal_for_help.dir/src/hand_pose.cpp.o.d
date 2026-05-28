@@ -1,7 +1,7 @@
 CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o: \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/hand_pose.cpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/hand_pose.cpp \
  /usr/include/stdc-predef.h \
- /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/include/hand_pose.hpp \
+ /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/include/hand_pose.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \

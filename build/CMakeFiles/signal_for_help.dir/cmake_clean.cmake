@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o.d"
   "CMakeFiles/signal_for_help.dir/src/main.cpp.o"
   "CMakeFiles/signal_for_help.dir/src/main.cpp.o.d"
+  "CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o"
+  "CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o.d"
   "CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o"
   "CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o.d"
   "signal_for_help"

@@ -29,7 +29,7 @@ Paso 1           Paso 2            Paso 3
 2. **Pulgar adentro** — dobla el pulgar hacia la palma (sin cerrar los demás dedos).
 3. **Dedos cerrados** — cierra los 4 dedos sobre el pulgar (como un puño con el pulgar dentro).
 
-El programa detecta este gesto **en orden** y solo emite la alerta cuando se completa la secuencia.
+El programa detecta este gesto **en orden** y solo emite la alerta cuando se completa la secuencia **3 veces consecutivas**.
 
 ---
 
@@ -104,7 +104,7 @@ cambie, porque Y absorbe los cambios de brillo.
 
 ## Arquitectura del sistema
 
-El programa funciona en 5 etapas encadenadas por cada fotograma de la cámara:
+El programa funciona en 6 etapas encadenadas por cada fotograma de la cámara:
 
 ```
 ┌─────────────┐    ┌──────────────────┐    ┌──────────────────┐
@@ -116,6 +116,11 @@ El programa funciona en 5 etapas encadenadas por cada fotograma de la cámara:
                    │  5. AlertSystem  │ ←  │ 4. GestureDetect │ ← 3. landmarks
                    │  Overlay + notif │    │  Máquina estados │
                    └──────────────────┘    └──────────────────┘
+                          ↓ cada 3 gestos
+                   ┌──────────────────┐
+                   │  6. SerialComm   │
+                   │  "SFH\n" → COM  │
+                   └──────────────────┘
 ```
 
 ### Módulo 1: `SkinDetector` — Detección de piel
@@ -276,7 +281,7 @@ Esperamos hasta 8 frames consecutivos fallidos (~0.25 segundos a 30fps) antes de
 
 **Archivo:** [include/alert_system.hpp](include/alert_system.hpp) · [src/alert_system.cpp](src/alert_system.cpp)
 
-Cuando se detecta el gesto completo:
+Cuando se completan los 3 gestos requeridos:
 1. **Overlay visual** — capa roja semi-transparente + texto grande en el video.
 2. **Borde parpadeante** — borde rojo que pulsa 3 veces por segundo.
 3. **Sonido de terminal** — `\a` (beep del sistema).
@@ -284,6 +289,26 @@ Cuando se detecta el gesto completo:
 5. **Log en consola** — imprime la hora exacta de detección.
 
 La alerta permanece visible durante **8 segundos** y se apaga sola.
+
+---
+
+### Módulo 5: `SerialComm` — Comunicación serial
+
+**Archivo:** [include/serial_comm.hpp](include/serial_comm.hpp) · [src/serial_comm.cpp](src/serial_comm.cpp)
+
+Envía el mensaje `SFH\n` por puerto serial cada vez que se completan 3 gestos.
+Compatible con Linux (POSIX `termios`) y Windows (Win32 `CreateFile`).
+
+**Contador de gestos:**
+- Cada gesto completado incrementa el contador interno.
+- Al llegar a **3 gestos**, se dispara la alerta y se envía el mensaje serial. El contador vuelve a 0.
+- Si pasan **10 segundos** sin que se complete ningún gesto nuevo, el contador se reinicia automáticamente.
+
+**Mensaje enviado:**
+```
+SFH\n
+```
+Son 4 bytes ASCII: `S`, `F`, `H`, salto de línea. Compatible con `Serial.readStringUntil('\n')` de Arduino.
 
 ---
 
@@ -323,10 +348,26 @@ cmake --build . -j$(nproc)
 ### Opciones de ejecución
 
 ```bash
-./signal_for_help                          # cámara 0, modelo por defecto
-./signal_for_help ruta/al/modelo.onnx     # modelo personalizado
-./signal_for_help ruta/al/modelo.onnx 1   # cámara 1
+./signal_for_help                                              # cámara 0, modelo por defecto
+./signal_for_help ruta/al/modelo.onnx                         # modelo personalizado
+./signal_for_help ruta/al/modelo.onnx 1                       # cámara 1
+./signal_for_help ruta/al/modelo.onnx 0 /dev/ttyUSB0          # con Arduino en Linux (CH340)
+./signal_for_help ruta/al/modelo.onnx 0 /dev/ttyACM0          # con Arduino Uno/Nano en Linux
+./signal_for_help ruta/al/modelo.onnx 0 /dev/ttyACM0 115200   # baud personalizado
 ```
+
+En Windows reemplaza el puerto por `COM3`, `COM5`, etc.:
+```
+signal_for_help.exe ruta\al\modelo.onnx 0 COM3 9600
+```
+
+**¿Cómo saber en qué puerto está el Arduino?**
+```bash
+# Linux — antes y después de conectar el Arduino
+ls /dev/ttyUSB* /dev/ttyACM*
+dmesg | tail -5
+```
+En Windows: Administrador de dispositivos → Puertos (COM y LPT).
 
 ---
 
@@ -335,7 +376,7 @@ cmake --build . -j$(nproc)
 | Tecla | Acción |
 |-------|--------|
 | `Q` o `Esc` | Salir del programa |
-| `R`         | Reiniciar la máquina de estados (volver a IDLE) |
+| `R`         | Reiniciar la máquina de estados y el contador de gestos (volver a IDLE) |
 | `G`         | Activar/desactivar panel debug (muestra estado de cada dedo) |
 | `D`         | Activar/desactivar máscara de piel (diagnóstico) |
 | `V`         | Modo verbose: imprime valores geométricos en consola |
@@ -350,7 +391,10 @@ cmake --build . -j$(nproc)
 4. **Dobla el pulgar** hacia la palma (los demás dedos siguen abiertos).
 5. Espera a que la barra azul llegue al 100% (≈ 0.5 segundos).
 6. **Cierra los dedos** sobre el pulgar, formando un puño con el pulgar dentro.
-7. ¡La alerta roja aparece en pantalla!
+7. El contador en la barra inferior muestra `Gestos: 1/3`. Abre la mano y repite.
+8. Al completar el gesto **3 veces**, la alerta roja aparece en pantalla y se envía `SFH` por el puerto serial.
+
+> Si pasan más de 10 segundos entre gestos, el contador se reinicia a 0.
 
 **Panel de debug (tecla G):**
 Activa el panel para ver en tiempo real qué detecta el sistema:
@@ -374,14 +418,16 @@ signal_for_help/
 │   ├── skin_detector.hpp
 │   ├── hand_pose.hpp
 │   ├── gesture_detector.hpp
-│   └── alert_system.hpp
+│   ├── alert_system.hpp
+│   └── serial_comm.hpp     ← Comunicación serial (Linux/Windows)
 │
 └── src/                    ← Implementaciones (.cpp)
-    ├── main.cpp            ← Bucle principal, cámara, interfaz gráfica
+    ├── main.cpp            ← Bucle principal, cámara, contador de gestos, HUD
     ├── skin_detector.cpp   ← Segmentación de piel (YCrCb)
     ├── hand_pose.cpp       ← Inferencia ONNX, 21 puntos
     ├── gesture_detector.cpp← Máquina de estados del gesto
-    └── alert_system.cpp    ← Overlay visual y notificaciones
+    ├── alert_system.cpp    ← Overlay visual y notificaciones
+    └── serial_comm.cpp     ← Puerto serial (POSIX termios / Win32)
 ```
 
 ---
@@ -410,6 +456,38 @@ incorrecto y el modelo falla. Por eso creamos el blob manualmente con la forma c
 Para video pregrabado, modifica `main.cpp` línea `cv::VideoCapture cap(camIndex, ...)` por:
 ```cpp
 cv::VideoCapture cap("video.mp4");
+```
+
+**¿Cómo recibo el mensaje en Arduino?**
+```cpp
+void setup() {
+    Serial.begin(9600);
+    pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+    if (Serial.available()) {
+        String msg = Serial.readStringUntil('\n');
+        msg.trim();
+        if (msg == "SFH") {
+            digitalWrite(LED_BUILTIN, HIGH);
+            delay(1000);
+            digitalWrite(LED_BUILTIN, LOW);
+        }
+    }
+}
+```
+
+**¿Cómo cambio cuántos gestos se requieren antes de enviar la alerta?**
+En `src/main.cpp`, línea con `GESTURES_TO_ALERT`:
+```cpp
+static constexpr int GESTURES_TO_ALERT = 3;  // cambia este número
+```
+
+**¿Cómo cambio el tiempo de inactividad para reiniciar el contador?**
+En `src/main.cpp`, línea con `COUNTER_RESET_SEC`:
+```cpp
+static constexpr float COUNTER_RESET_SEC = 10.0f;  // segundos
 ```
 
 **¿Cómo ajusto la sensibilidad?**

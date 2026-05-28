@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help
+CMAKE_SOURCE_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build
+CMAKE_BINARY_DIR = /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/signal_for_help.dir/depend.make
@@ -73,74 +73,88 @@ CMakeFiles/signal_for_help.dir/codegen:
 .PHONY : CMakeFiles/signal_for_help.dir/codegen
 
 CMakeFiles/signal_for_help.dir/src/main.cpp.o: CMakeFiles/signal_for_help.dir/flags.make
-CMakeFiles/signal_for_help.dir/src/main.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/main.cpp
+CMakeFiles/signal_for_help.dir/src/main.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/main.cpp
 CMakeFiles/signal_for_help.dir/src/main.cpp.o: CMakeFiles/signal_for_help.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/signal_for_help.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/main.cpp.o -MF CMakeFiles/signal_for_help.dir/src/main.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/main.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/signal_for_help.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/main.cpp.o -MF CMakeFiles/signal_for_help.dir/src/main.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/main.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/main.cpp
 
 CMakeFiles/signal_for_help.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/signal_for_help.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/main.cpp > CMakeFiles/signal_for_help.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/main.cpp > CMakeFiles/signal_for_help.dir/src/main.cpp.i
 
 CMakeFiles/signal_for_help.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/signal_for_help.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/main.cpp -o CMakeFiles/signal_for_help.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/main.cpp -o CMakeFiles/signal_for_help.dir/src/main.cpp.s
 
 CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o: CMakeFiles/signal_for_help.dir/flags.make
-CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/skin_detector.cpp
+CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/skin_detector.cpp
 CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o: CMakeFiles/signal_for_help.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o -MF CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/skin_detector.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o -MF CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/skin_detector.cpp
 
 CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/skin_detector.cpp > CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/skin_detector.cpp > CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.i
 
 CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/skin_detector.cpp -o CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/skin_detector.cpp -o CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.s
 
 CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o: CMakeFiles/signal_for_help.dir/flags.make
-CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/hand_pose.cpp
+CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/hand_pose.cpp
 CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o: CMakeFiles/signal_for_help.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o -MF CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/hand_pose.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o -MF CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/hand_pose.cpp
 
 CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/hand_pose.cpp > CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/hand_pose.cpp > CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.i
 
 CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/hand_pose.cpp -o CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/hand_pose.cpp -o CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.s
 
 CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o: CMakeFiles/signal_for_help.dir/flags.make
-CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/gesture_detector.cpp
+CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/gesture_detector.cpp
 CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o: CMakeFiles/signal_for_help.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o -MF CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/gesture_detector.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o -MF CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/gesture_detector.cpp
 
 CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/gesture_detector.cpp > CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/gesture_detector.cpp > CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.i
 
 CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/gesture_detector.cpp -o CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/gesture_detector.cpp -o CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.s
 
 CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o: CMakeFiles/signal_for_help.dir/flags.make
-CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/alert_system.cpp
+CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/alert_system.cpp
 CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o: CMakeFiles/signal_for_help.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o -MF CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/alert_system.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o -MF CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/alert_system.cpp
 
 CMakeFiles/signal_for_help.dir/src/alert_system.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/signal_for_help.dir/src/alert_system.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/alert_system.cpp > CMakeFiles/signal_for_help.dir/src/alert_system.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/alert_system.cpp > CMakeFiles/signal_for_help.dir/src/alert_system.cpp.i
 
 CMakeFiles/signal_for_help.dir/src/alert_system.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/signal_for_help.dir/src/alert_system.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/alert_system.cpp -o CMakeFiles/signal_for_help.dir/src/alert_system.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/alert_system.cpp -o CMakeFiles/signal_for_help.dir/src/alert_system.cpp.s
+
+CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o: CMakeFiles/signal_for_help.dir/flags.make
+CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o: /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/serial_comm.cpp
+CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o: CMakeFiles/signal_for_help.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o -MF CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o.d -o CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o -c /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/serial_comm.cpp
+
+CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/serial_comm.cpp > CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.i
+
+CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/serial_comm.cpp -o CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.s
 
 # Object files for target signal_for_help
 signal_for_help_OBJECTS = \
@@ -148,7 +162,8 @@ signal_for_help_OBJECTS = \
 "CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o" \
 "CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o" \
 "CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o" \
-"CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o"
+"CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o" \
+"CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o"
 
 # External object files for target signal_for_help
 signal_for_help_EXTERNAL_OBJECTS =
@@ -158,6 +173,7 @@ signal_for_help: CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o
 signal_for_help: CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o
 signal_for_help: CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o
 signal_for_help: CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o
+signal_for_help: CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o
 signal_for_help: CMakeFiles/signal_for_help.dir/build.make
 signal_for_help: CMakeFiles/signal_for_help.dir/compiler_depend.ts
 signal_for_help: /usr/lib/libopencv_highgui.so.4.13.0
@@ -167,10 +183,10 @@ signal_for_help: /usr/lib/libopencv_imgcodecs.so.4.13.0
 signal_for_help: /usr/lib/libopencv_imgproc.so.4.13.0
 signal_for_help: /usr/lib/libopencv_core.so.4.13.0
 signal_for_help: CMakeFiles/signal_for_help.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable signal_for_help"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable signal_for_help"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/signal_for_help.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Linking models/ directory to build output"
-	/usr/bin/cmake -E create_symlink /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/models /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/models
+	/usr/bin/cmake -E create_symlink /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/models /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/models
 
 # Rule to build all files generated by this target.
 CMakeFiles/signal_for_help.dir/build: signal_for_help
@@ -181,6 +197,6 @@ CMakeFiles/signal_for_help.dir/clean:
 .PHONY : CMakeFiles/signal_for_help.dir/clean
 
 CMakeFiles/signal_for_help.dir/depend:
-	cd /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/build/CMakeFiles/signal_for_help.dir/DependInfo.cmake "--color=$(COLOR)" signal_for_help
+	cd /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build /home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/build/CMakeFiles/signal_for_help.dir/DependInfo.cmake "--color=$(COLOR)" signal_for_help
 .PHONY : CMakeFiles/signal_for_help.dir/depend
 

@@ -8,11 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/alert_system.cpp" "CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o.d"
-  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/gesture_detector.cpp" "CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o.d"
-  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/hand_pose.cpp" "CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o.d"
-  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/main.cpp" "CMakeFiles/signal_for_help.dir/src/main.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/main.cpp.o.d"
-  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signal_for_help/src/skin_detector.cpp" "CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o.d"
+  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/alert_system.cpp" "CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/alert_system.cpp.o.d"
+  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/gesture_detector.cpp" "CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/gesture_detector.cpp.o.d"
+  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/hand_pose.cpp" "CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/hand_pose.cpp.o.d"
+  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/main.cpp" "CMakeFiles/signal_for_help.dir/src/main.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/main.cpp.o.d"
+  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/serial_comm.cpp" "CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/serial_comm.cpp.o.d"
+  "/home/kaz/UNAE/ArquitecturaDeHardware/Proyecto/signalforhelp/signal_for_help/src/skin_detector.cpp" "CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o" "gcc" "CMakeFiles/signal_for_help.dir/src/skin_detector.cpp.o.d"
   "" "signal_for_help" "gcc" "CMakeFiles/signal_for_help.dir/link.d"
   )
 
