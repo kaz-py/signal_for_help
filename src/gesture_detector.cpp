@@ -103,13 +103,29 @@ GestureResult GestureDetector::update(const std::vector<cv::Point2f>& kp,
                 phaseStart_= now;
                 openFailCount_ = 0;
                 if (verbose_) std::cout << "[Gesture] → OPEN_HAND\n";
+            } else if (fastMode_ && checkThumbTucked(kp)) {
+                // Fast mode: skip step 1 — jump directly to THUMB_TUCKED
+                phase_     = GesturePhase::THUMB_TUCKED;
+                phaseStart_= now;
+                thumbFailCount_ = 0;
+                if (verbose_) std::cout << "[Gesture] → THUMB_TUCKED (modo rapido)\n";
             }
-            result.label = "Esperando gesto...";
+            result.label = fastMode_ ? "Listo — haz paso 2 directo" : "Esperando gesto...";
             break;
         }
 
         // ── OPEN_HAND: hold open palm for openHoldSec_ ───────────────────────
         case GesturePhase::OPEN_HAND: {
+            // Fast mode: skip hold timer — advance as soon as thumb is tucked
+            if (fastMode_ && checkThumbTucked(kp)) {
+                phase_     = GesturePhase::THUMB_TUCKED;
+                phaseStart_= now;
+                thumbFailCount_ = 0;
+                if (verbose_) std::cout << "[Gesture] → THUMB_TUCKED (modo rapido)\n";
+                result.label = "Pulgar adentro (paso 2/3)";
+                break;
+            }
+
             if (!checkOpenHand(kp)) {
                 ++openFailCount_;
                 if (openFailCount_ > MAX_FAIL_FRAMES) {
@@ -166,6 +182,7 @@ GestureResult GestureDetector::update(const std::vector<cv::Point2f>& kp,
                 if (!alertAlreadyFired_) {
                     alertAlreadyFired_ = true;
                     result.alertFired  = true;
+                    fastMode_ = true;  // from now on, step 1 is optional
 
                     auto t  = std::time(nullptr);
                     auto tm = *std::localtime(&t);
@@ -182,8 +199,11 @@ GestureResult GestureDetector::update(const std::vector<cv::Point2f>& kp,
         // ── SIGNAL_COMPLETE: hold alert until gesture is released ─────────────
         case GesturePhase::SIGNAL_COMPLETE: {
             progress = 1.0f;
-            // Allow re-trigger: reset when hand opens again
-            if (!checkFingersClosed(kp) && checkOpenHand(kp)) {
+            // Fast mode: just wait for fingers to open (no need for full open hand)
+            bool released = fastMode_
+                ? !checkFingersClosed(kp)
+                : (!checkFingersClosed(kp) && checkOpenHand(kp));
+            if (released) {
                 reset(); initialized_ = true; phaseStart_ = now; lastHandSeen_ = now;
                 if (verbose_) std::cout << "[Gesture] → IDLE (gesto liberado)\n";
             }

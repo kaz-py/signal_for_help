@@ -81,6 +81,7 @@ private:
     bool         initialized_{false};
     bool         alertAlreadyFired_{false};
     bool         verbose_{false};
+    bool         fastMode_{false};  // true after first complete gesture — skip step 1
 
     // Failure-tolerance counters: how many consecutive frames the current check
     // has been failing. We only transition back when tolerance is exceeded.
