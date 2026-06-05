@@ -176,11 +176,13 @@ static void drawHUD(Mat& frame,
 // ---------------------------------------------------------------------------
 struct TiledScanner {
     vector<Rect> tiles;
-    int idx{0};
+    int  idx{0};
+    Size initSize;  // frame size used when tiles were last built
 
     void init(Size sz) {
         tiles.clear();
-        idx = 0;
+        idx      = 0;
+        initSize = sz;
         // Crop ≈ 55 % of the short side: large enough to include the whole hand,
         // small enough that the hand fills a meaningful fraction of 224×224.
         int crop = static_cast<int>(min(sz.width, sz.height) * 0.55f);
@@ -196,25 +198,88 @@ struct TiledScanner {
     }
 
     // Try up to `n` tiles this call. Returns the best valid result found.
+    // Uses a lower confidence threshold (fallbackConf) for initial detection,
+    // then validates the best candidate with fullConf (coarse-to-fine).
     HandPoseResult scan(HandPoseEstimator& est,
                         const Mat& frame,
                         const Rect& fROI,
-                        int n) {
-        if (tiles.empty()) init(frame.size());
+                        int n,
+                        float fallbackConf,
+                        float fullConf) {
+        // 3a: Auto-reinit if frame dimensions changed since last init
+        if (tiles.empty() || frame.size() != initSize)
+            init(frame.size());
+
         HandPoseResult best;
         for (int t = 0; t < n; ++t) {
             Rect tile = tiles[idx % (int)tiles.size()] & fROI;
             ++idx;
             if (tile.width < 60 || tile.height < 60) continue;
             HandPoseResult pose = est.estimate(frame(tile), tile, frame.size());
-            if (pose.valid && pose.confidence > CONF_THRESHOLD)
+            // 3c: Accept candidates at reduced threshold; validate below
+            if (pose.valid && pose.confidence > fallbackConf)
                 if (!best.valid || pose.confidence > best.confidence)
                     best = pose;
         }
+
+        // 3b: Refinement pass — if a candidate was found, re-run on a crop
+        // tightly fitted to the detected landmarks (better scale = better score).
+        if (best.valid && !best.landmarks.empty()) {
+            vector<Point> pts;
+            pts.reserve(best.landmarks.size());
+            for (auto& lm : best.landmarks)
+                pts.emplace_back(static_cast<int>(lm.x), static_cast<int>(lm.y));
+            Rect lmBox  = boundingRect(pts);
+            Rect refined = expandROI(lmBox, frame.size(), 0.20f, 0.35f) & fROI;
+
+            if (refined.width >= 60 && refined.height >= 60) {
+                HandPoseResult rpose = est.estimate(frame(refined), refined, frame.size());
+                // Accept the refined result only if it passes the full threshold
+                if (rpose.valid && rpose.confidence >= fullConf)
+                    best = rpose;
+                else if (best.confidence < fullConf)
+                    best = HandPoseResult{};  // discard — didn't survive validation
+            } else if (best.confidence < fullConf) {
+                best = HandPoseResult{};  // discard — too small to refine and below threshold
+            }
+        }
+
         return best;
     }
 
     void reset() { idx = 0; }
+};
+
+// ---------------------------------------------------------------------------
+// LandmarkSmoother: exponential low-pass filter for 21 MediaPipe landmarks.
+// smoothed[i] = alpha * new[i] + (1-alpha) * prev[i]
+// Only active on consecutive confirmed-hand frames; resets when tracking is lost.
+// ---------------------------------------------------------------------------
+struct LandmarkSmoother {
+    static constexpr float ALPHA = 0.6f;  // weight for newest observation
+
+    vector<Point2f> prev;
+    bool            initialized{false};
+
+    // Apply smoothing.  Returns smoothed landmarks (or raw if first frame).
+    vector<Point2f> smooth(const vector<Point2f>& raw, bool handPresent) {
+        if (!handPresent || raw.empty()) {
+            initialized = false;
+            return raw;
+        }
+        if (!initialized || prev.size() != raw.size()) {
+            prev        = raw;
+            initialized = true;
+            return raw;
+        }
+        vector<Point2f> out(raw.size());
+        for (size_t i = 0; i < raw.size(); ++i)
+            out[i] = ALPHA * raw[i] + (1.0f - ALPHA) * prev[i];
+        prev = out;
+        return out;
+    }
+
+    void reset() { initialized = false; prev.clear(); }
 };
 
 // ---------------------------------------------------------------------------
@@ -291,9 +356,10 @@ int main(int argc, char* argv[]) {
     //             Fallback tiled scan (260 px crops) when skin detector fails.
     // TRACK mode: pose estimator runs directly on last known expanded bbox.
     //             Skips skin detector entirely — one inference per frame.
-    Rect         trackedROI;
-    int          trackAge = TRACK_MAX_AGE + 1;
-    TiledScanner scanner;
+    Rect             trackedROI;
+    int              trackAge = TRACK_MAX_AGE + 1;
+    TiledScanner     scanner;
+    LandmarkSmoother smoother;
 
     Mat frame, display;
     GestureDebug lastDebug{};
@@ -351,8 +417,11 @@ int main(int argc, char* argv[]) {
             // At that crop size the hand fills ~35-50 % of the 224×224 input
             // (vs ~15 % for a full 640×480 frame — the old broken approach).
             if (!handConfirmed && poseEstimator.isLoaded()) {
-                if (scanner.tiles.empty()) scanner.init(frame.size());
-                HandPoseResult fb = scanner.scan(poseEstimator, frame, fROI, 3);
+                // 3c: Fallback uses 80 % of the normal threshold to find candidates,
+                // the refinement pass (3b) validates them with the full threshold.
+                const float fallbackConf = CONF_THRESHOLD * 0.80f;
+                HandPoseResult fb = scanner.scan(poseEstimator, frame, fROI, 3,
+                                                 fallbackConf, CONF_THRESHOLD);
                 if (fb.valid && fb.confidence > CONF_THRESHOLD) {
                     bestPose = fb; handConfirmed = true;
                     // Draw the active tile in orange so the user can see it
@@ -392,14 +461,22 @@ int main(int argc, char* argv[]) {
             rectangle(display, lmBox, Scalar(0, 220, 80), 2);
         }
 
+        // ── 3d: Smooth landmarks with exponential low-pass filter ────────────
+        // Reduces per-frame jitter before geometry-sensitive FSM thresholds.
+        vector<Point2f> smoothedLandmarks;
+        if (handConfirmed && !bestPose.landmarks.empty())
+            smoothedLandmarks = smoother.smooth(bestPose.landmarks, true);
+        else
+            smoother.smooth({}, false);  // notify smoother that hand is absent
+
         // ── Gesture state machine ────────────────────────────────────────────
         GestureResult gr = gestureDetector.update(
-            handConfirmed ? bestPose.landmarks : vector<Point2f>{},
+            handConfirmed ? smoothedLandmarks : vector<Point2f>{},
             handConfirmed ? bestPose.confidence : 0.0f,
             handConfirmed);
 
-        if (handConfirmed && !bestPose.landmarks.empty())
-            lastDebug = gestureDetector.getDebug(bestPose.landmarks);
+        if (handConfirmed && !smoothedLandmarks.empty())
+            lastDebug = gestureDetector.getDebug(smoothedLandmarks);
 
         // ── Gesture counter + alert + serial ─────────────────────────────────
         if (gr.alertFired) {
@@ -445,6 +522,7 @@ int main(int argc, char* argv[]) {
             trackedROI   = Rect{};
             trackAge     = TRACK_MAX_AGE + 1;
             scanner.reset();
+            smoother.reset();
             cout << "[Main] Reinicio manual.\n";
         }
         if (key == 'g') {

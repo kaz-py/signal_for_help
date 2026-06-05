@@ -97,7 +97,9 @@ GestureResult GestureDetector::update(const vector<Point2f>& kp,
     switch (phase_) {
 
         case GesturePhase::IDLE: {
-            if (checkOpenHand(kp)) {
+            // 3e: Use minExtended=3 when entering from IDLE (more tolerant for
+            //     slightly-rotated hands), strict=4 for continuity checks.
+            if (checkOpenHand(kp, 3)) {
                 phase_         = GesturePhase::OPEN_HAND;
                 phaseStart_    = now;
                 openFailCount_ = 0;
@@ -239,7 +241,7 @@ bool GestureDetector::fingerCurled(const vector<Point2f>& kp,
 // Gesture phase checks
 // ============================================================================
 
-bool GestureDetector::checkOpenHand(const vector<Point2f>& kp) const {
+bool GestureDetector::checkOpenHand(const vector<Point2f>& kp, int minExtended) const {
     int extCount = 0;
     if (fingerExtended(kp, INDEX_TIP,  INDEX_MCP))  ++extCount;
     if (fingerExtended(kp, MIDDLE_TIP, MIDDLE_MCP)) ++extCount;
@@ -250,7 +252,7 @@ bool GestureDetector::checkOpenHand(const vector<Point2f>& kp) const {
     Point2f center = palmCenter(kp);
     bool    thumbOut = dist(kp[THUMB_TIP], center) > pl * 0.88f;
 
-    return extCount >= 4 && thumbOut;
+    return extCount >= minExtended && thumbOut;
 }
 
 bool GestureDetector::checkThumbTucked(const vector<Point2f>& kp) const {

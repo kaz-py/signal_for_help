@@ -61,7 +61,10 @@ private:
     using TP    = Clock::time_point;
 
     // High-level gesture checks
-    bool checkOpenHand   (const std::vector<cv::Point2f>& kp) const;
+    // minExtended: how many of the 4 fingers (index-pinky) must be extended.
+    //   Use 3 when transitioning FROM IDLE (more tolerant for tilted hands),
+    //   use 4 when validating an already-open hand (avoids false continuations).
+    bool checkOpenHand   (const std::vector<cv::Point2f>& kp, int minExtended = 4) const;
     bool checkThumbTucked(const std::vector<cv::Point2f>& kp) const;
     bool checkFingersClosed(const std::vector<cv::Point2f>& kp) const;
 
