@@ -22,9 +22,9 @@ extern const int HAND_CONNECTIONS[][2];
 extern const int HAND_CONNECTIONS_COUNT;
 
 struct HandPoseResult {
-    std::vector<cv::Point2f> landmarks;  // 21 points in original frame coordinates
-    std::vector<float>       zCoords;    // relative depth (negative = closer to camera)
-    float                    confidence; // hand presence score [0, 1]
+    std::vector<cv::Point2f> landmarks;      // 21 points in original frame coordinates
+    std::vector<float>       zCoords;        // relative depth (negative = closer to camera)
+    float                    confidence{0.0f}; // hand presence score [0, 1]
     bool                     valid{false};
 };
 

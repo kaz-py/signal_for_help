@@ -87,7 +87,7 @@ private:
     // has been failing. We only transition back when tolerance is exceeded.
     int  openFailCount_{0};
     int  thumbFailCount_{0};
-    static constexpr int MAX_FAIL_FRAMES = 8;  // ~0.25 s at 30 fps
+    static constexpr int MAX_FAIL_FRAMES = 5;  // ~0.17 s at 30 fps
 
     float openHoldSec_;
     float thumbHoldSec_;
