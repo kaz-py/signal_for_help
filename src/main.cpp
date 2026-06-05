@@ -13,8 +13,9 @@ using namespace cv;
 using namespace std;
 
 static constexpr int   GESTURES_TO_ALERT  = 3;
-static constexpr int   TRACK_MAX_AGE      = 30;   // ~1 s at 30 fps
+static constexpr int   TRACK_MAX_AGE      = 45;   // ~1.5 s at 30 fps
 static constexpr float CONF_THRESHOLD     = 0.32f;
+static constexpr float TRACK_CONF_THRESHOLD = CONF_THRESHOLD * 0.75f;  // ~0.24 — lower bar in track mode
 static constexpr float COUNTER_RESET_SEC  = 10.0f;
 
 // ---------------------------------------------------------------------------
@@ -379,14 +380,29 @@ int main(int argc, char* argv[]) {
 
         if (isTracking) {
             // ── Track mode ────────────────────────────────────────────────────
-            Rect tROI = expandROI(trackedROI, frame.size(), 0.35f, 0.50f);
+            // Use generous padding — extra important when hand is closed (small bbox)
+            float padS = (trackedROI.width  < frame.cols / 5) ? 0.60f : 0.35f;
+            float padB = (trackedROI.height < frame.rows / 5) ? 0.80f : 0.50f;
+            Rect tROI = expandROI(trackedROI, frame.size(), padS, padB);
             tROI &= fROI;
             rectangle(display, tROI, Scalar(160, 200, 0), 1);
 
             if (poseEstimator.isLoaded() && tROI.width >= 20 && tROI.height >= 20) {
                 HandPoseResult pose = poseEstimator.estimate(frame(tROI), tROI, frame.size());
-                if (pose.valid && pose.confidence > CONF_THRESHOLD) {
+                // In track mode accept slightly lower confidence — we know the hand is there
+                if (pose.valid && pose.confidence > TRACK_CONF_THRESHOLD) {
                     bestPose = pose; handConfirmed = true;
+                }
+            }
+
+            // If track inference failed this frame, try 1 fallback tile as rescue
+            if (!handConfirmed && poseEstimator.isLoaded()) {
+                if (scanner.tiles.empty()) scanner.init(frame.size());
+                const float rescueConf = CONF_THRESHOLD * 0.70f;
+                HandPoseResult rescue = scanner.scan(poseEstimator, frame, fROI, 1,
+                                                     rescueConf, TRACK_CONF_THRESHOLD);
+                if (rescue.valid && rescue.confidence >= TRACK_CONF_THRESHOLD) {
+                    bestPose = rescue; handConfirmed = true;
                 }
             }
         } else {
@@ -438,7 +454,20 @@ int main(int argc, char* argv[]) {
             pts.reserve(bestPose.landmarks.size());
             for (auto& lm : bestPose.landmarks)
                 pts.emplace_back(static_cast<int>(lm.x), static_cast<int>(lm.y));
-            trackedROI = boundingRect(pts);
+            Rect lmRect = boundingRect(pts);
+            // Enforce minimum size so closed-fist crops don't shrink below model sweet spot
+            int minW = frame.cols / 5;   // ~128 px at 640
+            int minH = frame.rows / 5;   // ~96  px at 480
+            if (lmRect.width  < minW) {
+                lmRect.x -= (minW - lmRect.width)  / 2;
+                lmRect.width  = minW;
+            }
+            if (lmRect.height < minH) {
+                lmRect.y -= (minH - lmRect.height) / 2;
+                lmRect.height = minH;
+            }
+            lmRect &= fROI;  // clamp to frame
+            trackedROI = lmRect;
             trackAge   = 0;
         } else {
             ++trackAge;
